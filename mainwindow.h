@@ -57,8 +57,8 @@ private:
 
     int keyslicemove = 0; //variable to hold slice numbers while navigating
 
-    QPoint numDegrees;
-    QPoint numSteps;
+    QPoint numDegrees; //variable to hold the angle of wheel rotation
+    QPoint numSteps; //variable to hold the steps
 
 };
 #endif // MAINWINDOW_H
