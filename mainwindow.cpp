@@ -79,12 +79,10 @@ void MainWindow::wheelEvent(QWheelEvent *event) //navigate through slides using 
         keyslicemove++;
         tdicommapper->SetZSlice(keyslicemove);
         tdicomwindow->Render();
-        tdicomwindow->Render();
     }
     else if((numSteps.y() < 0) && (keyslicemove > minSlice)){ //setting lower bound and checking the direction of wheel movement
         keyslicemove--;
         tdicommapper->SetZSlice(keyslicemove);
-        tdicomwindow->Render();
         tdicomwindow->Render();
     }
 
