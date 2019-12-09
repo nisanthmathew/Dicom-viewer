@@ -50,8 +50,8 @@ void MainWindow::on_pushButton_clicked() //load and visualize images in a direct
         tdicomwindow->Render();
         minSlice = tdicommapper->GetWholeZMin();
         maxSlice =tdicommapper->GetWholeZMax();
-        cout << "min slice number is " << minSlice << "\n" << std::flush;
-        cout << "max slice number is " << maxSlice << "\n" << std::flush;
+        //cout << "min slice number is " << minSlice << "\n" << std::flush;
+        //out << "max slice number is " << maxSlice << "\n" << std::flush;
         tdicomwindow->Render();
     }
 }
@@ -61,13 +61,31 @@ void MainWindow::keyPressEvent(QKeyEvent *event){ // navigative through slides b
     if(event->key() == Qt::Key_Up && (keyslicemove < maxSlice)){ //setting upperbound
         keyslicemove++;
         tdicommapper->SetZSlice(keyslicemove);
-        cout << "current slice number is " << keyslicemove << "\n" << std::flush;
         tdicomwindow->Render();
     }
-    if(event->key() == Qt::Key_Down && (keyslicemove > minSlice)){ //setting lower bound
+    else if(event->key() == Qt::Key_Down && (keyslicemove > minSlice)){ //setting lower bound
         keyslicemove--;
         tdicommapper->SetZSlice(keyslicemove);
-        cout << "current slice number is " << keyslicemove << "\n" << std::flush;
         tdicomwindow->Render();
     }
+}
+
+void MainWindow::wheelEvent(QWheelEvent *event) //navigate through slides using mouse wheel
+{
+    numDegrees = event->angleDelta() / 8; /*Most mouse types work in steps of 15 degrees,
+                                                in which case the delta value is a multiple of 120; i.e., 120 units * 1/8 = 15 degrees.*/
+    numSteps = numDegrees / 15;
+    if((numSteps.y() > 0) && (keyslicemove < maxSlice)){ //setting upperbound and checking the direction of wheel movement
+        keyslicemove++;
+        tdicommapper->SetZSlice(keyslicemove);
+        tdicomwindow->Render();
+        tdicomwindow->Render();
+    }
+    else if((numSteps.y() < 0) && (keyslicemove > minSlice)){ //setting lower bound and checking the direction of wheel movement
+        keyslicemove--;
+        tdicommapper->SetZSlice(keyslicemove);
+        tdicomwindow->Render();
+        tdicomwindow->Render();
+    }
+
 }

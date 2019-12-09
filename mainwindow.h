@@ -17,7 +17,7 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QDebug>
-
+#include <QWheelEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +38,8 @@ private slots:
 
     void keyPressEvent(QKeyEvent *e); //function to monitor key press events
 
+    void wheelEvent(QWheelEvent *event);
+
 private:
     Ui::MainWindow *ui;
 
@@ -54,6 +56,9 @@ private:
     int maxSlice;
 
     int keyslicemove = 0; //variable to hold slice numbers while navigating
+
+    QPoint numDegrees;
+    QPoint numSteps;
 
 };
 #endif // MAINWINDOW_H
